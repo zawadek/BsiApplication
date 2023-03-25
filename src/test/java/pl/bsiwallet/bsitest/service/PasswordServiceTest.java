@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import pl.bsiwallet.bsitest.entities.Password;
 import pl.bsiwallet.bsitest.entities.User;
 import pl.bsiwallet.bsitest.interfaces.PasswordRepository;
+import pl.bsiwallet.bsitest.utils.Access;
 import pl.bsiwallet.bsitest.utils.SecurityUtils;
 import pl.bsiwallet.bsitest.utils.UserSession;
 import pl.bsiwallet.bsitest.wrappers.PasswordRequestWrapper;
@@ -47,6 +48,7 @@ class PasswordServiceTest {
         UserSession userSession = UserSession.getSession();
         userSession.setUser(user);
         userSession.setIsValid(true);
+        userSession.setAccess(Access.MODIFY);
 
         passwordWrapper = new PasswordRequestWrapper();
         passwordWrapper.setDescription("testdescription");

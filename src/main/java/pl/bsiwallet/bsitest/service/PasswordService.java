@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.bsiwallet.bsitest.entities.Password;
 import pl.bsiwallet.bsitest.interfaces.PasswordRepository;
+import pl.bsiwallet.bsitest.utils.Access;
 import pl.bsiwallet.bsitest.utils.SecurityUtils;
 import pl.bsiwallet.bsitest.utils.UserSession;
 import pl.bsiwallet.bsitest.wrappers.PasswordRequestWrapper;
@@ -24,6 +25,10 @@ public class PasswordService {
 
     public ResponseEntity<?> createPassword(PasswordRequestWrapper passwordWrapper) {
         try {
+            if (userSession.getAccess() != Access.MODIFY) {
+                return new ResponseEntity<>("No access to modify password", HttpStatus.FORBIDDEN);
+            }
+
             Password password = new Password(
                     passwordWrapper.getWebAddress(),
                     passwordWrapper.getDescription(),
@@ -76,6 +81,10 @@ public class PasswordService {
 
     public ResponseEntity<?> editPassword(PasswordRequestWrapper passwordWrapper) {
         try {
+            if (userSession.getAccess() != Access.MODIFY) {
+                return new ResponseEntity<>("No access to modify password", HttpStatus.FORBIDDEN);
+            }
+
             Password password = new Password(passwordRepository.findById(passwordWrapper.getId()).get());
             password.setDescription(passwordWrapper.getDescription());
             password.setLogin(passwordWrapper.getLogin());

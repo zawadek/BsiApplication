@@ -7,10 +7,12 @@ public final class UserSession {
 
     private static User user;
     private static Boolean isValid;
+    private static Access access;
 
     private UserSession() {
         isValid = false;
         user = null;
+        access = Access.READONLY;
     }
 
     public static UserSession getSession() {
@@ -39,5 +41,13 @@ public final class UserSession {
 
     public static void setIsValid(Boolean isValid) {
         UserSession.isValid = isValid;
+    }
+
+    public static Access getAccess() {
+        return access;
+    }
+
+    public static void setAccess(Access access) {
+        UserSession.access = access;
     }
 }
