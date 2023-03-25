@@ -91,7 +91,7 @@ public class UserService {
         }
     }
 
-    private String calculatePasswordHash(String password, String salt, Boolean isHmac) {
+    public String calculatePasswordHash(String password, String salt, Boolean isHmac) {
         if(!isHmac) {
             return SecurityUtils.calculateSha512(password + salt);
         } else {
@@ -101,5 +101,9 @@ public class UserService {
 
     private Boolean isPasswordCorrect(User user, String password) {
         return user.getPasswordHash().equals(calculatePasswordHash(password, user.getSalt(), user.getKeptAsHash()));
+    }
+
+    public void setRestTemplate(RestTemplate restTemplateMock) {
+        restTemplate = restTemplateMock;
     }
 }

@@ -10,6 +10,7 @@ public final class UserSession {
 
     private UserSession() {
         isValid = false;
+        user = null;
     }
 
     public static UserSession getSession() {
