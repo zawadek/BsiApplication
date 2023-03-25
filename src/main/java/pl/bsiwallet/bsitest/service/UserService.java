@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import pl.bsiwallet.bsitest.interfaces.UserRepository;
 import pl.bsiwallet.bsitest.entities.User;
+import pl.bsiwallet.bsitest.utils.Access;
 import pl.bsiwallet.bsitest.utils.RandomStringGenerator;
 import pl.bsiwallet.bsitest.utils.SecurityUtils;
 import pl.bsiwallet.bsitest.utils.UserSession;
@@ -89,6 +90,16 @@ public class UserService {
         catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public String changeAccessLevel() {
+        if (userSession.getAccess() == Access.MODIFY) {
+            userSession.setAccess(Access.READONLY);
+        } else if (userSession.getAccess() == Access.READONLY) {
+            userSession.setAccess(Access.MODIFY);
+        }
+
+        return "Access level changed to " + userSession.getAccess();
     }
 
     public String calculatePasswordHash(String password, String salt, Boolean isHmac) {
