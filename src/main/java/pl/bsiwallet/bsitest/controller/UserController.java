@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.bsiwallet.bsitest.entities.User;
 import pl.bsiwallet.bsitest.service.UserService;
-import pl.bsiwallet.bsitest.utils.UserSession;
 import pl.bsiwallet.bsitest.wrappers.UserRequestWrapper;
 
 import java.util.Optional;
@@ -56,6 +55,6 @@ public class UserController {
 
     @GetMapping("/currentAccess")
     public String getUserAccess() {
-        return UserSession.getSession().getAccess().toString();
+        return userService.getCurrentAccess();
     }
 }

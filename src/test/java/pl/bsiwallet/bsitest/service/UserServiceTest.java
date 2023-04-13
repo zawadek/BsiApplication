@@ -34,6 +34,10 @@ class UserServiceTest {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private FunctionRunService functionRunService;
+    @Autowired
+    private DataChangeService dataChangeService;
 
     @MockBean
     private UserRepository userRepository;
@@ -160,7 +164,7 @@ class UserServiceTest {
                 Mockito.eq(Void.class)
         )).thenReturn(responseEntityMock);
 
-        UserService userService = new UserService(userRepository);
+        UserService userService = new UserService(userRepository, functionRunService, dataChangeService);
         userService.setRestTemplate(restTemplateMock);
 
         ResponseEntity<?> response = userService.changePassword("newpassword");
