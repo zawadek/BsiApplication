@@ -23,9 +23,7 @@ public class FunctionRunService {
 
     public ResponseEntity<?> getAllFunctionRunLogs() {
         try {
-            System.out.println("before find");
             List<FunctionRun> logs = repository.findAll();
-            System.out.println("after find");
             if (!logs.isEmpty()) {
                 return new ResponseEntity<>(logs, HttpStatus.OK);
             } else {
